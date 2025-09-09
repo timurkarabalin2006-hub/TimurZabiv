@@ -1,14 +1,9 @@
-# Task 3
-# Запрашиваем ввод
-a = int(input("Enter first number: "))
-b = int(input("Enter second number: "))
+# Task 2
+x = 5
+y = 3
 
-# Операции
-print(f"{a} + {b} = {a + b}")
-print(f"{a} - {b} = {a - b}")
-print(f"{a} * {b} = {a * b}")
-print(f"{a} / {b} = {a / b}")   # обычное деление
-print(f"{a} // {b} = {a // b}") # целочисленное деление
-print(f"{a} % {b} = {a % b}")   # остаток от деления
-print(f"{a}^2 = {a ** 2}")      # возведение в квадрат
-print(f"{b}^2 = {b ** 2}")
+print(f"{y}+{x}=?")
+print(f"{y} | {x} | {y + x}")
+print(f"Z({x})=F({y})")
+print(f"x={x}; y={y};")
+print(f"Answer: ({x};{y})")
