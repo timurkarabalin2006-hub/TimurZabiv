@@ -162,10 +162,10 @@
             <div class="bg-white/5 border border-white/10 rounded-2xl p-4 relative">
               <!-- Контролы -->
               <div class="absolute top-6 right-6 z-[1000] bg-black/50 rounded-lg p-2 space-y-2">
-                <button @click="currentZoom++" class="block w-8 h-8 bg-white/20 hover:bg-white/30 rounded flex items-center justify-center text-white">
+                <button @click="currentZoom++" class="block w-8 h-8 bg-white/20 hover:bg-white/30 rounded items-center justify-center text-white">
                   +
                 </button>
-                <button @click="currentZoom--" class="block w-8 h-8 bg-white/20 hover:bg-white/30 rounded flex items-center justify-center text-white">
+                <button @click="currentZoom--" class="block w-8 h-8 bg-white/20 hover:bg-white/30 rounded items-center justify-center text-white">
                   -
                 </button>
               </div>
@@ -298,6 +298,7 @@ import { LMap, LTileLayer, LMarker, LTooltip, LPopup, LCircle } from '@vue-leafl
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+
 // Типы
 interface Lake {
   name: string;
@@ -380,14 +381,15 @@ const getMaxTemperature = (): number => {
   return Math.max(...temperatureData.map(t => t.value));
 };
 
-const getTemperatureIcon = (lakeName: string) => {
+const getTemperatureIcon = (lakeName: string): L.Icon => {
   const emoji = getTemperatureEmoji(lakeName);
-  return L.divIcon({
+  // Create a DivIcon and cast it to L.Icon to satisfy vue-leaflet's strict prop type
+  return (L.divIcon({
     html: emoji,
     className: 'text-2xl',
     iconSize: [30, 30],
     iconAnchor: [15, 15]
-  });
+  }) as unknown) as L.Icon;
 };
 
 // Методы карты

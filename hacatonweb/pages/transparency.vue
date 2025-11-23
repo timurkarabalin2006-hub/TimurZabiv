@@ -70,7 +70,7 @@
                       :style="{ height: (data.value / 30 * 200) + 'px' }"
                       :title="data.lake + ': ' + data.value + ' NTU'"
                     ></div>
-                    <div class="text-xs mt-2 text-gray-400">{{ data.lake.substring(0, 3) }}</div>
+                    <div class="text-xs mt-2 text-gray-400">{{ data.lake.substring(0, 4) }}</div>
                   </div>
                 </div>
               </div>
@@ -88,7 +88,7 @@
                   </div>
                   <div class="p-4 bg-white/5 rounded-lg">
                     <div class="text-2xl mb-2">📏</div>
-                    <div class="font-semibold">Secchi Depth</div>
+                    <div class="font-semibold">Clarity Depth</div>
                     <div class="text-sm text-gray-400">Up to 8m</div>
                   </div>
                 </div>
@@ -105,9 +105,9 @@
 
           <!-- Правая колонка -->
           <div class="space-y-6">
-            <!-- Статус озер -->
+            <!-- Статус водоемов -->
             <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-              <h3 class="text-xl font-semibold mb-4">💧 Lake Transparency Status</h3>
+              <h3 class="text-xl font-semibold mb-4">💧 Water Body Transparency Status</h3>
               <div class="space-y-3">
                 <div 
                   v-for="lake in lakes" 
@@ -194,10 +194,10 @@
             <table class="w-full">
               <thead>
                 <tr class="border-b border-white/10">
-                  <th class="text-left pb-3">Lake</th>
+                  <th class="text-left pb-3">Water Body</th>
                   <th class="text-left pb-3">Turbidity</th>
                   <th class="text-left pb-3">Clarity Status</th>
-                  <th class="text-left pb-3">Secchi Depth</th>
+                  <th class="text-left pb-3">Visibility Depth</th>
                   <th class="text-left pb-3">Last Update</th>
                 </tr>
               </thead>
@@ -215,7 +215,7 @@
                       {{ measurement.status }}
                     </span>
                   </td>
-                  <td class="py-3">{{ measurement.secchiDepth }}</td>
+                  <td class="py-3">{{ measurement.visibilityDepth }}</td>
                   <td class="py-3 text-gray-400">{{ measurement.time }}</td>
                 </tr>
               </tbody>
@@ -233,10 +233,10 @@
             <div class="bg-white/5 border border-white/10 rounded-2xl p-4 relative">
               <!-- Контролы -->
               <div class="absolute top-6 right-6 z-[1000] bg-black/50 rounded-lg p-2 space-y-2">
-                <button @click="currentZoom++" class="block w-8 h-8 bg-white/20 hover:bg-white/30 rounded flex items-center justify-center text-white">
+                <button @click="currentZoom++" class="block w-8 h-8 bg-white/20 hover:bg-white/30 rounded items-center justify-center text-white">
                   +
                 </button>
-                <button @click="currentZoom--" class="block w-8 h-8 bg-white/20 hover:bg-white/30 rounded flex items-center justify-center text-white">
+                <button @click="currentZoom--" class="block w-8 h-8 bg-white/20 hover:bg-white/30 rounded items-center justify-center text-white">
                   -
                 </button>
               </div>
@@ -255,7 +255,7 @@
                     attribution="&copy; OpenStreetMap contributors"
                   />
                   
-                  <!-- Маркеры озер с прозрачностью -->
+                  <!-- Маркеры водоемов с прозрачностью -->
                   <LMarker 
                     v-for="(lake, i) in lakes" 
                     :key="i"
@@ -271,7 +271,7 @@
                         <div class="mt-2 space-y-1 text-sm">
                           <div>💧 Transparency: {{ getLakeTransparency(lake.name) }} NTU</div>
                           <div>📊 Status: {{ getTransparencyStatus(lake.name) }}</div>
-                          <div>📏 Secchi: {{ getSecchiDepth(lake.name) }}m</div>
+                          <div>📏 Visibility: {{ getVisibilityDepth(lake.name) }}m</div>
                           <div class="mt-2">
                             <div class="w-full bg-gray-200 rounded-full h-2">
                               <div 
@@ -303,7 +303,7 @@
               <!-- Статус бар -->
               <div class="flex justify-between items-center mt-4 text-sm text-gray-300">
                 <div>Zoom: {{ currentZoom }}x</div>
-                <div>Lakes: {{ lakes.length }}</div>
+                <div>Water Bodies: {{ lakes.length }}</div>
                 <div>Transparency Monitoring</div>
               </div>
             </div>
@@ -330,9 +330,9 @@
               </div>
             </div>
 
-            <!-- Список озер с прозрачностью -->
+            <!-- Список водоемов с прозрачностью -->
             <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
-              <h3 class="text-lg font-semibold mb-3">💧 Lakes Transparency</h3>
+              <h3 class="text-lg font-semibold mb-3">💧 Water Bodies Transparency</h3>
               <div class="space-y-3 max-h-96 overflow-y-auto">
                 <div 
                   v-for="lake in lakes" 
@@ -404,7 +404,7 @@ interface TransparencyMeasurement {
   lake: string;
   turbidity: number;
   status: 'excellent' | 'good' | 'poor';
-  secchiDepth: string;
+  visibilityDepth: string;
   time: string;
 }
 
@@ -413,30 +413,30 @@ const activeTab = ref('data');
 const currentZoom = ref(12);
 const currentCenter = ref<[number, number]>([54.88, 69.16]);
 
-// Данные озер
+// Данные водоемов
 const lakes: Lake[] = [
-  { name: 'Озеро Пёстрое', lat: 54.836699, lng: 69.111328, level: 1.7 },
-  { name: 'Озеро Белое', lat: 54.927154, lng: 69.254322, level: 1.3 },
-  { name: 'Озеро Горькое', lat: 54.947573, lng: 68.951122, level: 1.25 },
-  { name: 'Озеро Поганка', lat: 54.921205, lng: 69.053476, level: 1.7 },
-  { name: 'Озеро Дикое', lat: 54.840156, lng: 69.131957, level: 1.77 },
+  { name: 'Lake Pestroe', lat: 54.836699, lng: 69.111328, level: 1.7 },
+  { name: 'Lake Beloe', lat: 54.927154, lng: 69.254322, level: 1.3 },
+  { name: 'Lake Gorkoe', lat: 54.947573, lng: 68.951122, level: 1.25 },
+  { name: 'Lake Poganka', lat: 54.921205, lng: 69.053476, level: 1.7 },
+  { name: 'Lake Dikoe', lat: 54.840156, lng: 69.131957, level: 1.77 },
 ];
 
 // Данные прозрачности
 const transparencyData: TransparencyData[] = [
-  { lake: 'Озеро Пёстрое', value: 8.2 },
-  { lake: 'Озеро Белое', value: 4.1 },
-  { lake: 'Озеро Горькое', value: 18.2 },
-  { lake: 'Озеро Поганка', value: 12.5 },
-  { lake: 'Озеро Дикое', value: 6.8 },
+  { lake: 'Lake Pestroe', value: 8.2 },
+  { lake: 'Lake Beloe', value: 4.1 },
+  { lake: 'Lake Gorkoe', value: 18.2 },
+  { lake: 'Lake Poganka', value: 12.5 },
+  { lake: 'Lake Dikoe', value: 6.8 },
 ];
 
 const transparencyMeasurements: TransparencyMeasurement[] = [
-  { id: 1, lake: 'Озеро Пёстрое', turbidity: 8.2, status: 'excellent', secchiDepth: '4.2m', time: '10:30 AM' },
-  { id: 2, lake: 'Озеро Белое', turbidity: 4.1, status: 'excellent', secchiDepth: '6.8m', time: '10:25 AM' },
-  { id: 3, lake: 'Озеро Горькое', turbidity: 18.2, status: 'poor', secchiDepth: '2.1m', time: '10:20 AM' },
-  { id: 4, lake: 'Озеро Поганка', turbidity: 12.5, status: 'good', secchiDepth: '3.5m', time: '10:15 AM' },
-  { id: 5, lake: 'Озеро Дикое', turbidity: 6.8, status: 'excellent', secchiDepth: '5.1m', time: '10:10 AM' },
+  { id: 1, lake: 'Lake Pestroe', turbidity: 8.2, status: 'excellent', visibilityDepth: '4.2m', time: '10:30 AM' },
+  { id: 2, lake: 'Lake Beloe', turbidity: 4.1, status: 'excellent', visibilityDepth: '6.8m', time: '10:25 AM' },
+  { id: 3, lake: 'Lake Gorkoe', turbidity: 18.2, status: 'poor', visibilityDepth: '2.1m', time: '10:20 AM' },
+  { id: 4, lake: 'Lake Poganka', turbidity: 12.5, status: 'good', visibilityDepth: '3.5m', time: '10:15 AM' },
+  { id: 5, lake: 'Lake Dikoe', turbidity: 6.8, status: 'excellent', visibilityDepth: '5.1m', time: '10:10 AM' },
 ];
 
 // Методы
@@ -472,19 +472,19 @@ const getTransparencyStatusClass = (lake: Lake) => {
   return 'bg-red-500/10 border-red-500/30';
 };
 
-const getSecchiDepth = (lakeName: string): string => {
+const getVisibilityDepth = (lakeName: string): string => {
   const measurement = transparencyMeasurements.find(m => m.lake === lakeName);
-  return measurement ? measurement.secchiDepth : '3.0m';
+  return measurement ? measurement.visibilityDepth : '3.0m';
 };
 
-const getTransparencyIcon = (lakeName: string) => {
+const getTransparencyIcon = (lakeName: string): L.Icon => {
   const emoji = getTransparencyEmoji(lakeName);
   return L.divIcon({
     html: emoji,
     className: 'text-2xl',
     iconSize: [30, 30],
     iconAnchor: [15, 15]
-  });
+  }) as unknown as L.Icon;
 };
 
 const getStatusBadgeClass = (status: string) => {

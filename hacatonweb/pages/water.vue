@@ -56,9 +56,9 @@
               <!-- График -->
               <div class="bg-black/20 rounded-xl p-4 h-80 flex items-center justify-center">
                 <div class="text-center w-full">
-                  <div class="text-6xl mb-4">{{ getCurrentParam().emoji }}</div>
+                  <div class="text-6xl mb-4">{{ getCurrentParam()?.emoji ?? '' }}</div>
                   <div class="text-3xl font-bold mb-2">{{ getCurrentValue() }}</div>
-                  <div class="text-gray-400 mb-6">{{ getCurrentParam().unit }}</div>
+                  <div class="text-gray-400 mb-6">{{ getCurrentParam()?.unit ?? '' }}</div>
                   
                   <!-- Простой график -->
                   <div class="flex items-end justify-center gap-1 h-32 mx-auto max-w-md">
@@ -218,10 +218,10 @@
             <div class="bg-white/5 border border-white/10 rounded-2xl p-4 relative">
               <!-- Контролы -->
               <div class="absolute top-6 right-6 z-[1000] bg-black/50 rounded-lg p-2 space-y-2">
-                <button @click="currentZoom++" class="block w-8 h-8 bg-white/20 hover:bg-white/30 rounded flex items-center justify-center text-white">
+                <button @click="currentZoom++" class="block w-8 h-8 bg-white/20 hover:bg-white/30 rounded items-center justify-center text-white">
                   +
                 </button>
-                <button @click="currentZoom--" class="block w-8 h-8 bg-white/20 hover:bg-white/30 rounded flex items-center justify-center text-white">
+                <button @click="currentZoom--" class="block w-8 h-8 bg-white/20 hover:bg-white/30 rounded items-center justify-center text-white">
                   -
                 </button>
               </div>
@@ -362,9 +362,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+// @ts-ignore: no type declarations for '@vue-leaflet/vue-leaflet'
 import { LMap, LTileLayer, LMarker, LTooltip, LPopup, LCircle } from '@vue-leaflet/vue-leaflet';
 import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 
 // Типы
 interface Lake {

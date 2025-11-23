@@ -1,14 +1,9 @@
 <template>
   <div class="flex flex-col min-h-screen bg-gradient-to-br from-[#0b1524] via-[#0e2239] to-[#143d63] text-white px-6">
-    <!-- Header -->
     <header class="fixed top-0 left-0 w-full flex justify-between items-center px-6 py-4 z-50 bg-transparent">
-      <NuxtLink to="/" class="flex items-center gap-3 cursor-pointer group">
-        <img src="/public/images/nkuu.webp" alt="NKKU Logo" class="w-10 h-10 object-contain transition-transform group-hover:scale-110" />
-        <span class="font-bold text-xl sm:text-2xl drop-shadow-lg bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-          Kozybaev University
-        </span>
-      </NuxtLink>
-      
+  <!-- Пустой div для балансировки layout (бургер остается справа) -->
+      <div class="w-10 h-10"></div>
+  
       <!-- Красивый бургер -->
       <button @click="toggleMenu" class="relative w-10 h-10 flex flex-col items-center justify-center group focus:outline-none">
         <div class="flex flex-col items-end gap-1.5">

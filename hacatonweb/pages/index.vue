@@ -1,6 +1,14 @@
 <template>
   <div>
-    <!-- Основной контент (без изменений) -->
+    <div class="fixed top-0 left-0 z-50 p-6">
+      <div class="flex items-center gap-2">
+        <div class="text-xl">🌊</div>
+        <span class="font-bold text-lg sm:text-xl drop-shadow-lg bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+          SkoHydrovision
+        </span>
+      </div>
+    </div>
+
     <main class="flex-1 pt-24">
       <section class="text-center max-w-3xl mx-auto mb-16">
         <h1 class="text-4xl sm:text-5xl font-bold drop-shadow-lg">
@@ -96,27 +104,27 @@
               target="_blank"
               class="w-10 h-10 bg-white/10 hover:bg-red-500 rounded-lg flex items-center justify-center transition"
             >
-              <img src="/public/images/youtube.webp" class="w-5 h-5" alt="YouTube" />
+              <img src="/public/images/youtube.png" class="w-5 h-5" alt="YouTube" />
             </a>
             <a 
               href="https://www.facebook.com" 
               target="_blank"
               class="w-10 h-10 bg-white/10 hover:bg-blue-600 rounded-lg flex items-center justify-center transition"
             >
-              <img src="/public/images/facebook.webp" class="w-5 h-5" alt="Facebook" />
+              <img src="/public/images/facebook.png" class="w-5 h-5" alt="Facebook" />
             </a>
             <a 
               href="https://www.github.com" 
               target="_blank"
               class="w-10 h-10 bg-white/10 hover:bg-gray-800 rounded-lg flex items-center justify-center transition"
             >
-              <img src="/public/images/github.webp" class="w-5 h-5" alt="GitHub" />
+              <img src="/public/images/github.png" class="w-5 h-5" alt="GitHub" />
             </a>
           </div>
           
           <!-- Копирайт и статус -->
           <div class="flex flex-col items-center md:items-end gap-2">
-            <p class="text-sm text-gray-300">© 2024 All Rights Reserved</p>
+            <p class="text-sm text-gray-300">© 2024 SkoHydrovision • All Rights Reserved</p>
             <div class="flex items-center gap-2 text-xs text-green-400">
               <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
               System Online
@@ -136,5 +144,4 @@
 </template>
 
 <script setup>
-// Логика для главной страницы если нужна
 </script>
