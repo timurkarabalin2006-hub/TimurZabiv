@@ -36,7 +36,7 @@
             <span>📞</span>
             <span class="hidden sm:inline">{{ t('nav.contacts') }}</span>
           </NuxtLink>
-       </div>
+        </div>
 
         <!-- Бургер меню -->
         <button @click="toggleMenu" class="relative w-10 h-10 flex flex-col items-center justify-center group focus:outline-none">
