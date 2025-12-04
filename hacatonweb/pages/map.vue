@@ -31,81 +31,82 @@
               </button>
             </div>
 
-            <!-- Карта -->
+            <!-- Карта (только на клиенте) -->
             <div class="rounded-xl overflow-hidden border border-white/20" style="height: 65vh">
-              <LMap 
-                :zoom="currentZoom" 
-                :center="currentCenter" 
-                :use-global-leaflet="false"
-                @update:zoom="onZoomUpdate"
-                @update:center="onCenterUpdate"
-              >
-                <LTileLayer 
-                  :url="isSatellite ? satelliteUrl : streetUrl"
-                  :attribution="isSatellite ? satelliteAttribution : streetAttribution"
-                />
-                
-                <!-- Маркеры с разными иконками -->
-                <LMarker :lat-lng="petropavl" :icon="cityIcon">
-                  <LTooltip permanent direction="top">🏙️ Petropavlosk</LTooltip>
-                  <LPopup>
-                    <div class="text-black p-2">
-                      <strong class="text-lg">🏙️ Petropavlosk</strong>
-                      <div class="mt-2 space-y-1 text-sm">
-                        <div>📍 Regional Center</div>
-                        <div>👥 Population: ~200,000</div>
-                        <div>🌆 Major city in North Kazakhstan</div>
-                      </div>
-                    </div>
-                  </LPopup>
-                </LMarker>
-
-                <LMarker :lat-lng="Ishim" :icon="riverIcon">
-                  <LTooltip permanent direction="top">🌊 Ishim River</LTooltip>
-                  <LPopup>
-                    <div class="text-black p-2">
-                      <strong class="text-lg">🌊 Ishim River</strong>
-                      <div class="mt-2 space-y-1 text-sm">
-                        <div>📍 Main water artery</div>
-                        <div>💧 Length: 2,450 km</div>
-                        <div>🚰 Water quality: Good</div>
-                      </div>
-                    </div>
-                  </LPopup>
-                </LMarker>
-
-                <LMarker 
-                  v-for="(lake, i) in lakes" 
-                  :key="i"
-                  :lat-lng="[lake.lat, lake.lng]"
-                  :icon="lakeIcon"
+              <client-only>
+                <LMap 
+                  :zoom="currentZoom" 
+                  :center="currentCenter" 
+                  :use-global-leaflet="false"
+                  @update:zoom="onZoomUpdate"
+                  @update:center="onCenterUpdate"
                 >
-                  <LTooltip permanent direction="top">💧 {{ lake.name }}</LTooltip>
-                  <LPopup>
-                    <div class="text-black p-2">
-                      <strong class="text-lg">💧 {{ lake.name }}</strong>
-                      <div class="mt-2 space-y-1 text-sm">
-                        <div>📍 Coordinates: {{ lake.lat.toFixed(4) }}, {{ lake.lng.toFixed(4) }}</div>
-                        <div>🌡️ Temperature: {{ getRandomValue(15, 25) }}°C</div>
-                        <div>🔍 Transparency: {{ getRandomTransparency() }}</div>
-                        <div>📊 Depth: {{ getRandomValue(2, 12) }}m</div>
+                  <LTileLayer 
+                    :url="isSatellite ? satelliteUrl : streetUrl"
+                    :attribution="isSatellite ? satelliteAttribution : streetAttribution"
+                  />
+                  
+                  <!-- Маркеры -->
+                  <LMarker :lat-lng="petropavl" :icon="cityIcon">
+                    <LTooltip permanent direction="top">🏙️ Petropavlosk</LTooltip>
+                    <LPopup>
+                      <div class="text-black p-2">
+                        <strong class="text-lg">🏙️ Petropavlosk</strong>
+                        <div class="mt-2 space-y-1 text-sm">
+                          <div>📍 Regional Center</div>
+                          <div>👥 Population: ~200,000</div>
+                          <div>🌆 Major city in North Kazakhstan</div>
+                        </div>
                       </div>
-                    </div>
-                  </LPopup>
-                </LMarker>
+                    </LPopup>
+                  </LMarker>
 
-                <!-- Круги вокруг озер -->
-                <LCircle 
-                  v-for="(lake, i) in lakes" 
-                  :key="'circle-'+i"
-                  :lat-lng="[lake.lat, lake.lng]"
-                  :radius="500"
-                  :color="'#00ffff'"
-                  :fill-color="'#00ffff'"
-                  :fill-opacity="0.1"
-                  :weight="1"
-                />
-              </LMap>
+                  <LMarker :lat-lng="Ishim" :icon="riverIcon">
+                    <LTooltip permanent direction="top">🌊 Ishim River</LTooltip>
+                    <LPopup>
+                      <div class="text-black p-2">
+                        <strong class="text-lg">🌊 Ishim River</strong>
+                        <div class="mt-2 space-y-1 text-sm">
+                          <div>📍 Main water artery</div>
+                          <div>💧 Length: 2,450 km</div>
+                          <div>🚰 Water quality: Good</div>
+                        </div>
+                      </div>
+                    </LPopup>
+                  </LMarker>
+
+                  <LMarker 
+                    v-for="(lake, i) in lakes" 
+                    :key="i"
+                    :lat-lng="[lake.lat, lake.lng]"
+                    :icon="lakeIcon"
+                  >
+                    <LTooltip permanent direction="top">💧 {{ lake.name }}</LTooltip>
+                    <LPopup>
+                      <div class="text-black p-2">
+                        <strong class="text-lg">💧 {{ lake.name }}</strong>
+                        <div class="mt-2 space-y-1 text-sm">
+                          <div>📍 Coordinates: {{ lake.lat.toFixed(4) }}, {{ lake.lng.toFixed(4) }}</div>
+                          <div>🌡️ Temperature: {{ getRandomValue(15, 25) }}°C</div>
+                          <div>🔍 Transparency: {{ getRandomTransparency() }}</div>
+                          <div>📊 Depth: {{ getRandomValue(2, 12) }}m</div>
+                        </div>
+                      </div>
+                    </LPopup>
+                  </LMarker>
+
+                  <LCircle 
+                    v-for="(lake, i) in lakes" 
+                    :key="'circle-'+i"
+                    :lat-lng="[lake.lat, lake.lng]"
+                    :radius="500"
+                    :color="'#00ffff'"
+                    :fill-color="'#00ffff'"
+                    :fill-opacity="0.1"
+                    :weight="1"
+                  />
+                </LMap>
+              </client-only>
             </div>
 
             <!-- Статус бар -->
