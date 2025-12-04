@@ -36,31 +36,7 @@
             <span>📞</span>
             <span class="hidden sm:inline">{{ t('nav.contacts') }}</span>
           </NuxtLink>
-        </div>
-
-        <!-- Переключатель языков -->
-        <div class="relative group">
-          <button 
-            @click="toggleLanguageMenu"
-            class="flex items-center bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-2 text-white hover:bg-white/20 transition-all duration-300"
-          >
-            <span class="text-lg">{{ getLanguageFlag(currentLang) }}</span>
-          </button>
-          
-          <!-- Выпадающее меню языков -->
-          <div v-if="showLanguageMenu" class="absolute top-full right-0 mt-2 w-40 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl shadow-2xl py-2 z-50">
-            <button 
-              v-for="lang in availableLanguages" 
-              :key="lang.code"
-              @click="changeLanguage(lang.code)"
-              class="flex items-center gap-3 w-full px-4 py-2 text-white hover:bg-white/20 transition-all duration-200"
-            >
-              <span class="text-lg">{{ lang.flag }}</span>
-              <span class="flex-1 text-left text-sm">{{ lang.name }}</span>
-              <span v-if="currentLang === lang.code" class="text-blue-400">✓</span>
-            </button>
-          </div>
-        </div>
+       </div>
 
         <!-- Бургер меню -->
         <button @click="toggleMenu" class="relative w-10 h-10 flex flex-col items-center justify-center group focus:outline-none">
